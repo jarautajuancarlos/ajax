@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  <button onclick="ajax_get_json()">Mostrar datos</button>
+  <div class="" id="info">
+  </div>
+
+  <script type="text/javascript">
+
+
+    function ajax_get_json(){
+
+      var resultado = document.getElementById("info");
+
+      // verificar el navegador con el que estamos trabajando
+      var xmlhttp;
+      if(window.XMLHttpRequest){
+        xmlhttp = new XMLHttpRequest();
+      }else{
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      xmlhttp.onreadystatechange = function(){
+        if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+
+          var datos= JSON.parse(xmlhttp.responseText);
+
+          // if(resultado.innerHTML == ""){
+            for(var i in datos){
+              resultado.innerHTML += i + ": " + datos[i] + "<br>";
+            }
+          // }
+        }
+      }
+
+      xmlhttp.open('GET', 'datos2.json', true);
+      xmlhttp.send();
+
+    }
+  </script>
+
+  </body>
+</html>
